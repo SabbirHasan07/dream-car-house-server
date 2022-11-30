@@ -107,16 +107,14 @@ async function run() {
       const allproducts = await cursor.toArray()
       res.send(allproducts);
     })
-
-    
-
-    app.get('/allproducts/:id', async (req, res) => {
-      const id = req.params.id;
-      console.log(id);
-      const query = { _id: ObjectId(id) }
-      const order = await allproductsCollections.findOne(query)
-      res.send(order)
+    app.get('/allproduct/:condition', async (req, res) => {
+      const condition = req.params.condition
+      const query = { condition: condition }
+      const cursor = allproductsCollections.find(query)
+      const findResult = await cursor.toArray()
+      res.send(findResult);
     })
+    
 
     app.delete('/book/:id',async (req,res)=>{
       const id = req.params.id;
