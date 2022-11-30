@@ -88,7 +88,12 @@ async function run() {
     })
 
 
-   
+    app.get('/cetagories', async (req, res) => {
+      const query = {}
+      const cursor = cetagoriesCollections.find(query)
+      const homes = await cursor.toArray()
+      res.send(homes);
+    })
 
     app.post('/allproducts', async (req, res) => {
       const allproducts = req.body
@@ -103,13 +108,7 @@ async function run() {
       res.send(allproducts);
     })
 
-    app.get('/allproduct/:condition', async (req, res) => {
-      const condition = req.params.condition
-      const query = { condition: condition }
-      const cursor = allproductsCollections.find(query)
-      const findResult = await cursor.toArray()
-      res.send(findResult);
-    })
+    
 
     app.get('/allproducts/:id', async (req, res) => {
       const id = req.params.id;
